@@ -4,9 +4,34 @@ export interface IUserRepository{
     createUser(userData:Partial<Iuser>):Promise<Iuser>;
     getUserByEmail(email:string):Promise<Iuser | null>;
     getUserByUsername(username:string):Promise<Iuser | null>;
+
+    //5 common database operations can be added here
+    getUserById(id:string):Promise<Iuser | null>;
+    getAllUsers():Promise<Iuser[]>;
+    updateUser(id:string,updateData:Partial<Iuser>):Promise<Iuser | null>;
+    deleteUser(id:string):Promise<boolean>;
 }
 
 export class UserRepository implements IUserRepository{
+    async getUserById(id: string): Promise<Iuser | null> {
+       const user = await UserModel.findById(id);
+       return user;
+    }
+    async getAllUsers(): Promise<Iuser[]> {
+        const users = await UserModel.find();
+        return users;
+    }
+    async updateUser(id: string, updateData: Partial<Iuser>): Promise<Iuser | null> {
+        const updatedUser = await UserModel.findByIdAndUpdate
+        (id,
+        updateData,{new:true});
+        return updatedUser;
+    }
+    async deleteUser(id: string): Promise<boolean> {
+        const result = await UserModel.findByIdAndDelete(id);
+        return result ? true : false;
+
+    }
     async createUser(userData: Partial<Iuser>): Promise<Iuser> {
         const user = new UserModel(userData);
         await user.save();
