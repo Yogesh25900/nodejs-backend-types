@@ -10,9 +10,18 @@ export interface IUserRepository{
     getAllUsers():Promise<Iuser[]>;
     updateUser(id:string,updateData:Partial<Iuser>):Promise<Iuser | null>;
     deleteUser(id:string):Promise<boolean>;
+
+    loginUser(email:string,password:string):Promise<Iuser | null>;
+
 }
 
 export class UserRepository implements IUserRepository{
+
+    async loginUser(email: string, password: string): Promise<Iuser | null> {
+      
+        throw new Error("Method not implemented.");
+    }
+
     async getUserById(id: string): Promise<Iuser | null> {
        const user = await UserModel.findById(id);
        return user;
@@ -46,6 +55,7 @@ export class UserRepository implements IUserRepository{
         const user = await UserModel.findOne({username});
         return user;
     }
+    
 
 }
 

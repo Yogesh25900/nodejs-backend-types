@@ -1,0 +1,54 @@
+name: Local Coding Config
+version: 1.0.0
+schema: v1
+
+models:
+  # GPT-5 (OpenAI)
+  - name: my gpt-5
+    provider: openai
+    model: gpt-5
+    apiKey: YOUR_OPENAI_API_KEY_HERE
+
+ 
+  - name: Qwen2.5-Coder-3B (Local)
+    provider: openai
+    model: qwen2.5-coder-3b-instruct
+    apiBase: http://localhost:1234/v1
+    apiKey: lm-studio
+
+    roles:
+      - chat
+      - edit
+      - apply
+      - autocomplete
+
+continue.defaultModel: Qwen2.5-Coder-3B (Local)
+
+  #  Qwen2.5-Coder 3B (Ollama)
+  # - name: qwen2.5-coder-3b-instruct
+  #   provider: ollama
+  #   model: qwen2.5-coder:3b-instruct
+  #   roles:
+  #     - chat
+  #     - edit
+  #     - autocomplete
+  #     - apply
+
+  # # Qwen2.5-Coder 7B (Ollama)
+  # - name: qwen2.5-coder-7b
+  #   provider: ollama
+  #   model: qwen2.5-coder:7b
+  #   roles:
+  #     - chat
+  #     - edit
+  #     - autocomplete
+  #     - apply
+
+  # Claude-4 Sonnet
+  # - uses: anthropic/claude-4-sonnet
+  #   with:
+  #     ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+# MCP Servers
+mcpServers:
+  - uses: anthropic/memory-mcp

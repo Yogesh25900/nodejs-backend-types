@@ -7,4 +7,9 @@ export const PORT:number = process.env.PORT ? parseInt(process.env.PORT) :5000;
 //if port is not deinfed in .env use 5000as default
 
 export const MONGODB_URI = process.env.MONGODB_URL || "mongodb://localhost:27017/default_35D";
+
 //if mongodb url is not defined in .env use local mongodb url as default
+
+
+
+export const JWT_SECRET = process.env.JWT_SECRET ;

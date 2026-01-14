@@ -41,3 +41,15 @@ export const updateUserDto = UserSchema.partial().extend(
 )
 
 export type updateUserDto = z.infer<typeof updateUserDto>;
+
+
+//if anything is sent from client then we need to have a dto to validate that data
+
+export const loginUserDto = z.object(
+    {
+        email:z.string().min(1,"Email is required").email("Invalid email format"),
+        password:z.string().min(3,"Password must be at least 3 characters long")
+    }
+)
+
+export type loginUserDto = z.infer<typeof loginUserDto>;

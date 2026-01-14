@@ -1,7 +1,8 @@
 import z from "zod";
-import { createUserDto } from "../dtos/user.dto";
+import { createUserDto, loginUserDto } from "../dtos/user.dto";
 import { UserService } from "../services/user.service";
 import { Request, Response } from "express";
+import { HttpError } from "../errors/http-error";
 
 let userService = new UserService();
  
@@ -25,4 +26,23 @@ export class AuthController{
         }
     }
 }
+
+async loginUser(req:Request,res:Response){
+   try{
+    const parsedData = loginUserDto.safeParse(req.body);
+    if(!parsedData.success){
+        throw new HttpError(400,"Invalid credentials");
+
+    }
+    const user = await userService.loginUser(parsedData.data);
+    return res.status(200).json({success:true, message:"Login successful",});
+}
+catch(error:HttpError | any){
+ return res.status(error.statusCode || 500).json({success:false,message:error.message|| "Internal"});
+
+
+
+}
+}
+
 }
